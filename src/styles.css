@@ -1,0 +1,26 @@
+body {
+  font-family: sans-serif;
+}
+
+.title {
+  margin: auto;
+  text-align: center;
+}
+
+.video-player {
+  margin: auto;
+  flex: 1;
+  height: 90vh;
+  display: block;
+}
+
+.controls {
+  display: flex;
+  flex-direction: row;
+  margin: 1em auto;
+  justify-content: center;
+}
+
+.controls button {
+  margin: 0 4px;
+}
