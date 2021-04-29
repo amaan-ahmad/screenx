@@ -10,8 +10,8 @@ async function startRec() {
   try {
     stream = await navigator.mediaDevices.getDisplayMedia({
       video: {
-        mediaSource: "screen"
-      }
+        mediaSource: "screen",
+      },
     });
 
     recorder = new MediaRecorder(stream);
@@ -25,10 +25,16 @@ async function startRec() {
   }
 }
 
+const download = function (data) {
+  var link = document.createElement("a");
+  link.download = Date.now() + ".mp4";
+  link.href = data;
+  link.click();
+};
+
 async function stopRec() {
   try {
     recorder.stop();
-    document.getElementById("stop-btn").style.display = "none";
     stream.getTracks().forEach((track) => {
       track.stop();
     });
@@ -39,8 +45,10 @@ async function stopRec() {
 
 async function onStop() {
   try {
+    document.getElementById("stop-btn").style.display = "none";
+
     completeBlob = new Blob(chunks, {
-      type: chunks[0].type
+      type: chunks[0].type,
     });
     let downloadBtn = document.getElementById("download-btn");
     let video = document.getElementById("vidPlayer");
@@ -48,8 +56,10 @@ async function onStop() {
     video.style.display = "block";
     video.src = ObjectURL;
     downloadBtn.style.display = "unset";
-    downloadBtn.href = ObjectURL;
-    downloadBtn.download = Date.now() + ".mp4";
+    downloadBtn.addEventListener("click", (e) => {
+      e.preventDefault();
+      download(ObjectURL);
+    });
   } catch (error) {
     console.error(error);
   }
