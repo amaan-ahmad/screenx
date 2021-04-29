@@ -2,6 +2,7 @@ let completeBlob = null;
 let stream = null;
 let chunks = [];
 let recorder = null;
+let options = { mimeType: "video/webm;codecs=vp9" };
 
 document.getElementById("start-btn").addEventListener("click", startRec);
 document.getElementById("stop-btn").addEventListener("click", stopRec);
@@ -14,7 +15,7 @@ async function startRec() {
       },
     });
 
-    recorder = new MediaRecorder(stream);
+    recorder = new MediaRecorder(stream, options);
     recorder.ondataavailable = (e) => chunks.push(e.data);
     recorder.start();
     recorder.onstop = onStop;
@@ -48,7 +49,7 @@ async function onStop() {
     document.getElementById("stop-btn").style.display = "none";
 
     completeBlob = new Blob(chunks, {
-      type: chunks[0].type,
+      type: "video/webm",
     });
     let downloadBtn = document.getElementById("download-btn");
     let video = document.getElementById("vidPlayer");
