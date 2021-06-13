@@ -13,6 +13,11 @@ async function startRec() {
       video: {
         mediaSource: "screen",
       },
+      audio: {
+        echoCancellation: true,
+        noiseSuppression: true,
+        sampleRate: 44100,
+      },
     });
 
     recorder = new MediaRecorder(stream, options);
