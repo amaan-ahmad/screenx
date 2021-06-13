@@ -28,7 +28,7 @@ async function startRec() {
 
 const download = function (data) {
   var link = document.createElement("a");
-  link.download = Date.now() + ".mp4";
+  link.download = Date.now() + ".webm";
   link.href = data;
   link.click();
 };
